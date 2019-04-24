@@ -12,8 +12,8 @@ Provide API for BO
 + <a href="#5-get-member-status-history">[5：查詢會員-狀態異動紀錄]</a> - [BO-26]
 + <a href="#6-get-member-login-history">[6：查詢會員-登入資料]</a> - [BO-11]
 + <a href="#7-get-member-same-ip-history">[7：查詢會員-關聯資料]</a> - [BO-14]
-+ <a href="#8">[8：查詢會員-風控條件]</a> - [BO-16]
-+ <a href="#9">[9：查詢會員-交易資料]</a> - [BO-13]
++ <a href="#8-get-member-risk-controll">[8：查詢會員-風控條件]</a> - [BO-16]
++ <a href="#9-get-member-turnover">[9：查詢會員-交易資料]</a> - [BO-13]
 
 
 ## Common Object
@@ -132,7 +132,7 @@ Property                         | Value Type    | Description
 -------------------------------- | ------------  |-------------------
 fileId                           | string        | 檔案流水編號
 fileName                         | string        | 檔案名稱(含副檔名)
-fileSize                         | int           | bytes
+fileSize                         | integer       | bytes
 ```
 
 ## 3. Get File
@@ -202,7 +202,7 @@ Property                         | Value Type    | Description
 -------------------------------- | ------------  |--------------------------------------------
 uuid                             | string        | Member uuid 用戶名稱
 action                           | string        | 設為 [三種]: 正常, 不可登入(E2), 不可提現(E1)
-comment                          | string        | 備註
+Reason                          | string        | 備註
 files                            | array         | 上傳檔案，檔案id陣列
 ```
 
@@ -258,14 +258,14 @@ createDate                       | timestamp     | 建立日期
 csId                             | string        | CS id
 csName                           | string        | CS 名稱
 action                           | string        | [三種]: 正常, 不可登入(E2), 不可提現(E1)
-comment                          | string        | 備註
+Reason                          | string        | 備註
 files                            | array         | 檔案陣列
 
 Files Property                   | Value Type    | Description
 -------------------------------- | ------------  |----------------------------------------------------
 fileId                           | string        | 檔案流水編號
 fileName                         | string        | 檔案名稱(含副檔名)
-fileSize                         | int           | bytes
+fileSize                         | intege        | bytes
 ```
 
 
@@ -376,7 +376,62 @@ loginType                        | string        | [兩種]: 手機/網頁
 roleCode                         | string        | 會員對應的角色, MVP目前規劃會員只有一種角色: 直客
 ```
 
-## 8. Get Member Turnover
+## 8. Get Member Risk Controll
+> 查詢會員-風控條件 [BO-16]
+> 取得與此用戶風控相關資料
+
+**HTTP Request** 
+
+```
+GET /{brand}/api/v1/member/turnover/{uuid}
+```
+
+**Path Parameters**
+```
+Parameter     | Description
+------------- | ------------------------------------------------------------
+partition     | Partition for brand, e.g. example-brand
+uuid          | uuid, e.g. a9bb60e4-4481-4c97-8cac-481ebba219da
+```
+**Request Header**
+```
+Parameter     | Description
+------------- | ----------------------------------------------------------------
+Authorization | access token: "token {accessToken}"
+```
+
+**Response**
+```
+Code          | Description
+------------- | --------
+200           | OK 
+```
+**Response Body**
+```
+Property                            | Value Type     | Description
+----------------------------------- | ---------------|-------------------------------------------
+uuid                                | string         | Member uuid 用戶名稱
+riskControllLevel                   | string         | 風控等級[四種]: A,B,C,D,黑名單(W)
+depositeAmount                      | decimal        | 累積充值金額
+depositeCount                       | integer        | 累積充值成功次數
+dailyContributionAmount             | decimal        | 本日累積貢獻度
+riskControlRuleDailyDeposite        | RiskControlRule| 會員有無違反提現風控條件 - 本日提款
+riskControlRuleDailyTurnover        | RiskControlRule| 會員有無違反提現風控條件 - 本日有效流水
+riskControlRuleDailyContribution    | RiskControlRule| 會員有無違反提現風控條件 - 本日貢獻度
+riskControlRulesevenDaysContribution| RiskControlRule| 會員有無違反提現風控條件 - 七日貢獻度
+riskControlRuleDepositing           | RiskControlRule| 會員有無違反提現風控條件 - 申請提領中
+riskControllLevelCreateDate         | timestamp      | 風控等級上次更新時間
+riskControllLevelReason             | string         | 風控等級上次更新原因
+riskControllLevelCreateUser         | timestamp      | 風控等級上次更新系統or人員(人員名稱CS_09)
+sevenDaysTurnoverRate               | decimal        | 會員7日存流比 e.g. 5.3
+
+RiskControlRule Property            | Value Type    | Description
+----------------------------------- | ------------  |-------------------------------------------
+amount                              | decimal       | 金額
+riskControllAmount                  | decimal       | 對應風控條件
+```
+
+## 9. Get Member Turnover
 > 查詢會員-交易資料 [BO-13]
 > 取得與此用戶流水相關資料
 
@@ -418,7 +473,7 @@ depositingAmount                    | decimal       | 審核中 - 提現
 dailyWithdrawalAmount               | decimal       | 本日累積 - 充值
 dailyDepositeAmount                 | decimal       | 本日累積 - 提現
 dailyTurnoverAmount                 | decimal       | 本日累積 - 有效流水
-sevenDayAccumulatedWithdrawalAmount | decimal       | 7日累積 - 充值
-sevenDayAccumulatedDepositeAmount   | decimal       | 7日累積 - 提現
-sevenDayAccumulatedTurnoverAmount   | decimal       | 7日累積 - 有效流水
+sevenDaysAccumulatedWithdrawalAmount| decimal       | 7日累積 - 充值
+sevenDaysAccumulatedDepositeAmount  | decimal       | 7日累積 - 提現
+sevenDaysAccumulatedTurnoverAmount  | decimal       | 7日累積 - 有效流水
 ```
