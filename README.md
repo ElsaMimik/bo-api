@@ -49,7 +49,7 @@ GET /{brand}/api/v1/member/profile/{uuid}
 ```
 Parameter     | Description
 ------------- | ----------------------------------------------------
-partition     | Partition for brand, e.g. ```**example-brand**```
+partition     | Partition for brand, e.g. ```<i>example-brand</i>```
 uuid          | uuid, e.g. a9bb60e4-4481-4c97-8cac-481ebba219da
 ```
 **Request Header**
