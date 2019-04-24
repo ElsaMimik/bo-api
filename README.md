@@ -21,10 +21,10 @@ Provide API for BO
 **Error Response**
 ```
 Property | Value Type | Description
----------|------------|--------
+---------|------------|-----------------------------------------------------------------
 code     | integer    | Error code
 message  | string     | A human-readable description of the status of this operation
-traceId | string     | Trace ID for logger debug
+traceId  | string     | Trace ID for logger debug
 ```
 ```
 {
@@ -48,14 +48,14 @@ GET /{brand}/api/v1/member/profile/{uuid}
 **Path Parameters**
 ```
 Parameter     | Description
-------------- | --------
+------------- | ----------------------------------------------------
 partition     | Partition for brand, e.g. <i>example-brand</i>
 uuid          | uuid, e.g. a9bb60e4-4481-4c97-8cac-481ebba219da
 ```
 **Request Header**
 ```
 Parameter     | Description
-------------- | ------------
+------------- | --------------------------------------------------------
 Authorization | access token: "token {accessToken}"
 ```
 **Response**
@@ -67,7 +67,7 @@ Code          | Description
 **Response Body**
 ```
 Property                         | Value Type    | Description
--------------------------------- | ------------  |-----------
+-------------------------------- | ------------  |--------------------------------------------------
 uuid                             | string        | Member uuid 用戶名稱
 nickName                         | string        | Nickname 會員暱稱
 createDate                       | timestamp     | Content timestamp 會員建立日期
@@ -115,7 +115,7 @@ Authorization | access token: "token {accessToken}"
 **Request Body**
 ```
 Property                         | Value Type    | Description
--------------------------------- | ------------  |-----------
+-------------------------------- | ------------  |-------------------
 file                             | string        | 檔案的base64
 fileName                         | string        | 檔案名稱
 ```
@@ -129,7 +129,7 @@ Code          | Description
 **Response Body**
 ```
 Property                         | Value Type    | Description
--------------------------------- | ------------  |-----------
+-------------------------------- | ------------  |-------------------
 fileId                           | string        | 檔案流水編號
 fileName                         | string        | 檔案名稱(含副檔名)
 fileSize                         | int           | bytes
@@ -147,27 +147,27 @@ GET /{brand}/api/v1/file/{fileId}
 **Path Parameters**
 ```
 Parameter     | Description
-------------- | --------
+------------- | -------------------------------------------------
 partition     | Partition for brand, e.g. <i>example-brand</i>
 fileId        | file id
 ```
 **Request Header**
 ```
 Parameter     | Description
-------------- | ------------
+------------- | --------------------------------------------------
 Authorization | access token: "token {accessToken}"
 ```
 
 **Response**
 ```
 Code          | Description
-------------- | --------
+------------- | ---------------------------------------------------
 200           | OK 
 ```
 **Response Body**
 ```
 Property                         | Value Type    | Description
--------------------------------- | ------------  |-----------
+-------------------------------- | ------------  |----------------------
 fileId                           | string        | 檔案流水編號
 fileName                         | string        | 檔案名稱(含副檔名)
 file                             | string        | 檔案base64
@@ -186,20 +186,20 @@ POST /{brand}/api/v1/member/profile
 **Path Parameters**
 ```
 Parameter     | Description
-------------- | --------
+------------- | ----------------------------------------------------
 partition     | Partition for brand, e.g. <i>example-brand</i>
 ```
 **Request Header**
 ```
 Parameter     | Description
-------------- | ------------
+------------- | --------------------------------------------------------
 Authorization | access token: "token {accessToken}"
 ```
 
 **Request Body**
 ```
 Property                         | Value Type    | Description
--------------------------------- | ------------  |-----------
+-------------------------------- | ------------  |--------------------------------------------
 uuid                             | string        | Member uuid 用戶名稱
 action                           | string        | 設為 [三種]: 正常, 不可登入(E2), 不可提現(E1)
 comment                          | string        | 備註
@@ -230,21 +230,21 @@ GET /{brand}/api/v1/member/status-history/{uuid}
 **Path Parameters**
 ```
 Parameter     | Description
-------------- | --------
+------------- | ----------------------------------------------------
 partition     | Partition for brand, e.g. <i>example-brand</i>
 uuid          | uuid, e.g. a9bb60e4-4481-4c97-8cac-481ebba219da
 ```
 **Request Header**
 ```
 Parameter     | Description
-------------- | ------------
+------------- | --------------------------------------------------------
 Authorization | access token: "token {accessToken}"
 ```
 
 **Response**
 ```
 Code          | Description
-------------- | --------
+------------- | ----------------------------------------------------
 200           | OK 
 ```
 **Response Body**
@@ -253,7 +253,7 @@ If sussess return following data in array
 <i>回傳的資料必須依照時間降序排列</i>
 
 Array Property                   | Value Type    | Description
--------------------------------- | ------------  |-----------
+-------------------------------- | ------------  |----------------------------------------------------
 createDate                       | timestamp     | 建立日期
 csId                             | string        | CS id
 csName                           | string        | CS 名稱
@@ -262,7 +262,7 @@ comment                          | string        | 備註
 files                            | array         | 檔案陣列
 
 Files Property                   | Value Type    | Description
--------------------------------- | ------------  |-----------
+-------------------------------- | ------------  |----------------------------------------------------
 fileId                           | string        | 檔案流水編號
 fileName                         | string        | 檔案名稱(含副檔名)
 fileSize                         | int           | bytes
@@ -281,21 +281,21 @@ GET /{brand}/api/v1/member/login-history/{uuid}
 **Path Parameters**
 ```
 Parameter     | Description
-------------- | --------
+------------- | ------------------------------------------------------------
 partition     | Partition for brand, e.g. <i>example-brand</i>
 uuid          | uuid, e.g. a9bb60e4-4481-4c97-8cac-481ebba219da
 ```
 **Request Header**
 ```
 Parameter     | Description
-------------- | ------------
+------------- | ----------------------------------------------------------------
 Authorization | access token: "token {accessToken}"
 ```
 
 **Request Body**
 ```
 Property                         | Value Type    | Description
--------------------------------- | ------------  |-----------
+-------------------------------- | ------------  |----------------------------
 startDate                        | timestamp     | 起始時間
 endDate                          | timestamp     | 結束時間
 isSuccess                        | boolean       | 是否登入成功
@@ -314,7 +314,7 @@ If sussess return following data in array
 
 
 Array Property                   | Value Type    | Description
--------------------------------- | ------------  |-----------
+-------------------------------- | ------------  |-----------------
 createDate                       | timestamp     | 登入時間
 IP                               | string        | IP Address
 isSuccess                        | boolean       | 是否登入成功
@@ -335,14 +335,14 @@ GET /{brand}/api/v1/member/same-ip-history/{uuid}
 **Path Parameters**
 ```
 Parameter     | Description
-------------- | --------
+------------- | ------------------------------------------------------------
 partition     | Partition for brand, e.g. <i>example-brand</i>
 uuid          | uuid, e.g. a9bb60e4-4481-4c97-8cac-481ebba219da
 ```
 **Request Header**
 ```
 Parameter     | Description
-------------- | ------------
+------------- | ----------------------------------------------------------------
 Authorization | access token: "token {accessToken}"
 ```
 
@@ -367,7 +367,7 @@ If sussess return following data in array
 
 
 Array Property                   | Value Type    | Description
--------------------------------- | ------------  |-----------
+-------------------------------- | ------------  |-------------------------------------------
 uuid                             | string        | Member uuid 用戶名稱
 createDate                       | timestamp     | 登入時間
 IP                               | string        | IP Address
