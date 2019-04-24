@@ -202,7 +202,7 @@ Property                         | Value Type    | Description
 -------------------------------- | ------------  |--------------------------------------------
 uuid                             | string        | Member uuid 用戶名稱
 action                           | string        | 設為 [三種]: 正常, 不可登入(E2), 不可提現(E1)
-Reason                          | string        | 備註
+Reason                           | string        | 備註
 files                            | array         | 上傳檔案，檔案id陣列
 ```
 
@@ -258,8 +258,9 @@ createDate                       | timestamp     | 建立日期
 csId                             | string        | CS id
 csName                           | string        | CS 名稱
 action                           | string        | [三種]: 正常, 不可登入(E2), 不可提現(E1)
-Reason                          | string        | 備註
+Reason                           | string        | 備註
 files                            | array         | 檔案陣列
+
 
 Files Property                   | Value Type    | Description
 -------------------------------- | ------------  |----------------------------------------------------
@@ -424,6 +425,8 @@ riskControllLevelCreateDate         | timestamp      | 風控等級上次更新�
 riskControllLevelReason             | string         | 風控等級上次更新原因
 riskControllLevelCreateUser         | timestamp      | 風控等級上次更新系統or人員(人員名稱CS_09)
 sevenDaysTurnoverRate               | decimal        | 會員7日存流比 e.g. 5.3
+
+
 
 RiskControlRule Property            | Value Type    | Description
 ----------------------------------- | ------------  |-------------------------------------------
