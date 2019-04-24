@@ -5,7 +5,7 @@
 
 Provide API for BO
 
-+ <a href="#1-get-member-profile-by-uuid">[1：查詢會員-基本資料]</a> - [BO-18]
++ <a href="#1-get-member-profile-by-uuid">[1：查詢會員-基本資料]</a> - [BO-18/BO-12]
 + <a href="#2-upload-file">[2：上傳檔案]</a> - [提供後台CS上傳檔案]
 + <a href="#3-get-file">[3：取得檔案]</a> - [下載檔案使用]
 + <a href="#4-update-member-status">[4：會員-狀態調整]</a> - [BO-17/BO-185]
@@ -78,7 +78,7 @@ riskControllLevel                | string        | 風控等級[四種]: A,B,C,D
 riskControllLevelCreateDate      | timestamp     | 風控等級上次更新時間
 amount                           | decimal       | 錢包金額(不包含保險櫃金額) e.g. 12345678.1234
 freezeAmount                     | decimal       | 遊戲凍結金額
-safeAmount                       | decimal       | 保險箱金額
+securityBoxAmount                | decimal       | 保險箱金額
 withdrawalLimitAmount            | decimal       | 提款限額
 availableWithdrawalLimitAmount   | decimal       | 可提領金額
 effectiveBetAmount               | decimal       | 有效流水
@@ -250,7 +250,7 @@ Code          | Description
 **Response Body**
 ```
 If sussess return following data in array
-<i>回傳的資料必須依照時間降序排列</i>
+__**回傳的資料必須依照時間降序排列**__
 
 Array Property                   | Value Type    | Description
 -------------------------------- | ------------  |----------------------------------------------------
@@ -310,7 +310,7 @@ Code          | Description
 **Response Body**
 ```
 If sussess return following data in array
-<i>回傳的資料必須依照時間降序排列</i>
+__**回傳的資料必須依照時間降序排列**__
 
 
 Array Property                   | Value Type    | Description
@@ -363,7 +363,7 @@ Code          | Description
 **Response Body**
 ```
 If sussess return following data in array
-<i>回傳的資料必須依照時間降序排列</i>
+__**回傳的資料必須依照時間降序排列**__
 
 
 Array Property                   | Value Type    | Description
@@ -374,4 +374,51 @@ iP                               | string        | IP Address
 isSuccess                        | boolean       | 是否登入成功
 loginType                        | string        | [兩種]: 手機/網頁
 roleCode                         | string        | 會員對應的角色, MVP目前規劃會員只有一種角色: 直客
+```
+
+## 8. Get Member Turnover
+> 查詢會員-交易資料 [BO-13]
+> 取得與此用戶流水相關資料
+
+**HTTP Request** 
+
+```
+GET /{brand}/api/v1/member/turnover/{uuid}
+```
+
+**Path Parameters**
+```
+Parameter     | Description
+------------- | ------------------------------------------------------------
+partition     | Partition for brand, e.g. <i>example-brand</i>
+uuid          | uuid, e.g. a9bb60e4-4481-4c97-8cac-481ebba219da
+```
+**Request Header**
+```
+Parameter     | Description
+------------- | ----------------------------------------------------------------
+Authorization | access token: "token {accessToken}"
+```
+
+**Response**
+```
+Code          | Description
+------------- | --------
+200           | OK 
+```
+**Response Body**
+```
+Property                            | Value Type    | Description
+----------------------------------- | ------------  |-------------------------------------------
+uuid                                | string        | Member uuid 用戶名稱
+lastWithdrawnDate                   | timestamp     | 最新提現成功交易時間
+lastdepositedDate                   | timestamp     | 最新充值成功交易時間
+withdrawingAmount                   | decimal       | 審核中 - 充值 
+depositingAmount                    | decimal       | 審核中 - 提現
+dailyWithdrawalAmount               | decimal       | 本日累積 - 充值
+dailyDepositeAmount                 | decimal       | 本日累積 - 提現
+dailyTurnoverAmount                 | decimal       | 本日累積 - 有效流水
+sevenDayAccumulatedWithdrawalAmount | decimal       | 7日累積 - 充值
+sevenDayAccumulatedDepositeAmount   | decimal       | 7日累積 - 提現
+sevenDayAccumulatedTurnoverAmount   | decimal       | 7日累積 - 有效流水
 ```
