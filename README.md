@@ -49,7 +49,7 @@ GET /{brand}/api/v1/member/profile/{uuid}
 ```
 Parameter     | Description
 ------------- | ----------------------------------------------------
-partition     | Partition for brand, e.g. ```<i>example-brand</i>```
+partition     | Partition for brand, e.g. example-brand
 uuid          | uuid, e.g. a9bb60e4-4481-4c97-8cac-481ebba219da
 ```
 **Request Header**
@@ -103,7 +103,7 @@ POST /{brand}/api/v1/file
 ```
 Parameter     | Description
 ------------- | --------
-partition     | Partition for brand, e.g. `**example-brand**`
+partition     | Partition for brand, e.g. example-brand
 ```
 **Request Header**
 ```
@@ -148,7 +148,7 @@ GET /{brand}/api/v1/file/{fileId}
 ```
 Parameter     | Description
 ------------- | -------------------------------------------------
-partition     | Partition for brand, e.g. `**example-brand**`
+partition     | Partition for brand, e.g. example-brand
 fileId        | file id
 ```
 **Request Header**
@@ -187,7 +187,7 @@ POST /{brand}/api/v1/member/profile
 ```
 Parameter     | Description
 ------------- | ----------------------------------------------------
-partition     | Partition for brand, e.g. `**example-brand**`
+partition     | Partition for brand, e.g. example-brand
 ```
 **Request Header**
 ```
@@ -231,7 +231,7 @@ GET /{brand}/api/v1/member/status-history/{uuid}
 ```
 Parameter     | Description
 ------------- | ----------------------------------------------------
-partition     | Partition for brand, e.g. `**example-brand**`
+partition     | Partition for brand, e.g. example-brand
 uuid          | uuid, e.g. a9bb60e4-4481-4c97-8cac-481ebba219da
 ```
 **Request Header**
@@ -250,7 +250,7 @@ Code          | Description
 **Response Body**
 ```
 If sussess return following data in array
-`**回傳的資料必須依照時間降序排列**`
+回傳的資料必須依照時間降序排列
 
 Array Property                   | Value Type    | Description
 -------------------------------- | ------------  |----------------------------------------------------
@@ -282,7 +282,7 @@ GET /{brand}/api/v1/member/login-history/{uuid}
 ```
 Parameter     | Description
 ------------- | ------------------------------------------------------------
-partition     | Partition for brand, e.g. `**example-brand**`
+partition     | Partition for brand, e.g. example-brand
 uuid          | uuid, e.g. a9bb60e4-4481-4c97-8cac-481ebba219da
 ```
 **Request Header**
@@ -310,7 +310,7 @@ Code          | Description
 **Response Body**
 ```
 If sussess return following data in array
-`**回傳的資料必須依照時間降序排列**`
+回傳的資料必須依照時間降序排列
 
 
 Array Property                   | Value Type    | Description
@@ -336,7 +336,7 @@ GET /{brand}/api/v1/member/same-ip-history/{uuid}
 ```
 Parameter     | Description
 ------------- | ------------------------------------------------------------
-partition     | Partition for brand, e.g. `**example-brand**`
+partition     | Partition for brand, e.g. example-brand
 uuid          | uuid, e.g. a9bb60e4-4481-4c97-8cac-481ebba219da
 ```
 **Request Header**
@@ -363,7 +363,7 @@ Code          | Description
 **Response Body**
 ```
 If sussess return following data in array
-`**回傳的資料必須依照時間降序排列**`
+回傳的資料必須依照時間降序排列
 
 
 Array Property                   | Value Type    | Description
@@ -390,7 +390,7 @@ GET /{brand}/api/v1/member/turnover/{uuid}
 ```
 Parameter     | Description
 ------------- | ------------------------------------------------------------
-partition     | Partition for brand, e.g. `**example-brand**`
+partition     | Partition for brand, e.g. example-brand
 uuid          | uuid, e.g. a9bb60e4-4481-4c97-8cac-481ebba219da
 ```
 **Request Header**
