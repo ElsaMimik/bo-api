@@ -316,7 +316,7 @@ If sussess return following data in array
 Array Property                   | Value Type    | Description
 -------------------------------- | ------------  |-----------------
 createDate                       | timestamp     | 登入時間
-IP                               | string        | IP Address
+iP                               | string        | IP Address
 isSuccess                        | boolean       | 是否登入成功
 loginType                        | string        | [兩種]: 手機/網頁
 ```
@@ -370,7 +370,7 @@ Array Property                   | Value Type    | Description
 -------------------------------- | ------------  |-------------------------------------------
 uuid                             | string        | Member uuid 用戶名稱
 createDate                       | timestamp     | 登入時間
-IP                               | string        | IP Address
+iP                               | string        | IP Address
 isSuccess                        | boolean       | 是否登入成功
 loginType                        | string        | [兩種]: 手機/網頁
 roleCode                         | string        | 會員對應的角色, MVP目前規劃會員只有一種角色: 直客
