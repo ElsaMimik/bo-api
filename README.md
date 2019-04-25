@@ -6,7 +6,7 @@
 Provide API for BO
 
 >權限
-+ <a href="#">取得菜單</a>
++ <a href="#1-get-member-menu">取得菜單</a>
 
 >檔案管理
 + <a href="#1-upload-file">[上傳檔案]</a>
@@ -44,7 +44,7 @@ traceId  | string     | Trace ID for logger debug
 # 權限
 
 ## 1. Get Member Menu
-> 取得客服後台菜單清單與權限
+> 取得客服後台菜單清單與權限，且每次換頁也會詢問
 
 **HTTP Request** 
 
