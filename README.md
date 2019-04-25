@@ -6,7 +6,7 @@
 Provide API for BO
 
 >權限
-+ <a href="#1-upload-file">取得菜單</a>
++ <a href="#">取得菜單</a>
 
 >檔案管理
 + <a href="#1-upload-file">[上傳檔案]</a>
