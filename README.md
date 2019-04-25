@@ -51,7 +51,7 @@ traceId  | string     | Trace ID for logger debug
 **HTTP Request** 
 
 ```
-POST /{brand}/api/v1/file
+POST /{brand}/api/v1/files
 ```
 
 **Path Parameters**
@@ -87,16 +87,15 @@ Property                         | Value Type    | Description
 -------------------------------- | ------------  |-------------------
 fileId                           | string        | 檔案流水編號
 fileName                         | string        | 檔案名稱(含副檔名)
-fileSize                         | integer       | bytes
 ```
 
 ## 2. Get File
-> 3：取得檔案 [下載檔案使用]
+> 取得檔案 [下載檔案使用]
 
 **HTTP Request** 
 
 ```
-GET /{brand}/api/v1/file/{fileId}
+GET /{brand}/api/v1/files/{fileId}
 ```
 
 **Path Parameters**
@@ -125,9 +124,8 @@ Property                         | Value Type    | Description
 -------------------------------- | ------------  |----------------------
 fileId                           | string        | 檔案流水編號
 fileName                         | string        | 檔案名稱(含副檔名)
-file                             | string        | 檔案base64
+fileData                         | string        | 檔案base64
 ```
-
 
 # 會員
 
@@ -137,7 +135,7 @@ file                             | string        | 檔案base64
 **HTTP Request** 
 
 ```
-GET /{brand}/api/v1/member/profile/{uuid}
+GET /{brand}/api/v1/members/{uuid}/profile
 ```
 
 **Path Parameters**
@@ -166,19 +164,19 @@ Property                         | Value Type    | Description
 uuid                             | string        | Member uuid 用戶名稱
 nickName                         | string        | Nickname 會員暱稱
 createDate                       | timestamp     | Content timestamp 會員建立日期
-currencyCode                     | string        | 幣別代碼 CNY,..
-roleCode                         | string        | 會員對應的角色, MVP目前規劃會員只有一種角色: 直客
+currencyCode                     | string        | 幣別代碼 CNY : 人民幣
+roleCode                         | string        | 字串 Normal : 直客
 phoneNumber                      | string        | 會員phone number 顯示後四碼，不能顯示全部
-riskControllLevel                | string        | 風控等級[四種]: A,B,C,D,黑名單(W)
+riskControllLevel                | string        | 風控等級[五種]: A,B,C,D,黑名單(W)
 riskControllLevelCreateDate      | timestamp     | 風控等級上次更新時間
 amount                           | decimal       | 錢包金額(不包含保險櫃金額) e.g. 12345678.1234
 freezeAmount                     | decimal       | 遊戲凍結金額
 securityBoxAmount                | decimal       | 保險箱金額
 withdrawalLimitAmount            | decimal       | 提款限額
 availableWithdrawalLimitAmount   | decimal       | 可提領金額
-effectiveBetAmount               | decimal       | 有效流水
-effectiveBetAmountCreateDate     | timestamp     | 有效流水上次更新時間
-status                           | string        | 會員目前狀態[三種]: 正常, 不可登入(E2), 不可提現(E1)
+turnoverAmount                   | decimal       | 有效流水
+turnoverAmountCreateDate         | timestamp     | 有效流水上次更新時間
+status                           | string        | 會員目前狀態[三種]: 正常(Normal), 不可登入(E2), 不可提現(E1)
 isBigWin                         | boolean       | 會員是否中大獎
 bigWinCreateDate                 | timestamp     | 會員上次中大獎時間
 isSettled                        | boolean       | 會員注單是否結算完畢
@@ -193,7 +191,13 @@ settleStatus                     | string        | 注單結算狀態[兩種]正
 **HTTP Request** 
 
 ```
-POST /{brand}/api/v1/member/profile
+POST /{brand}/api/v1/members/{uuid}/status
+
+Note:
+*狀態轉換前，必須做檢查*
+Normal ←→ E1
+Normal ←→ E2
+*但不可以 E1 和 E2 兩者轉換
 ```
 
 **Path Parameters**
@@ -214,9 +218,9 @@ Authorization | access token: "token {accessToken}"
 Property                         | Value Type    | Description
 -------------------------------- | ------------  |--------------------------------------------
 uuid                             | string        | Member uuid 用戶名稱
-action                           | string        | 設為 [三種]: 正常, 不可登入(E2), 不可提現(E1)
-Reason                           | string        | 備註
-files                            | array         | 上傳檔案，檔案id陣列
+action                           | string        | 設為 [三種]: 正常(Normal), 不可登入(E2), 不可提現(E1)
+reason                           | string        | 備註
+files                            | array<string> | 上傳檔案，檔案id陣列
 ```
 
 **Response**
@@ -237,7 +241,7 @@ If successful, this method returns an empty response body, or returns an error p
 **HTTP Request** 
 
 ```
-GET /{brand}/api/v1/member/status-history/{uuid}
+GET /{brand}/api/v1/members/{uuid}/status-history
 ```
 
 **Path Parameters**
@@ -270,16 +274,15 @@ Array Property                   | Value Type    | Description
 createDate                       | timestamp     | 建立日期
 csId                             | string        | CS id
 csName                           | string        | CS 名稱
-action                           | string        | [三種]: 正常, 不可登入(E2), 不可提現(E1)
-Reason                           | string        | 備註
-files                            | array         | 檔案陣列
+action                           | string        | [三種]: 正常(Normal), 不可登入(E2), 不可提現(E1)
+reason                           | string        | 備註
+files                            | array<Files>  | 檔案陣列
 
 
 Files Property                   | Value Type    | Description
 -------------------------------- | ------------  |----------------------------------------------------
 fileId                           | string        | 檔案流水編號
 fileName                         | string        | 檔案名稱(含副檔名)
-fileSize                         | intege        | bytes
 ```
 
 
@@ -289,7 +292,7 @@ fileSize                         | intege        | bytes
 **HTTP Request** 
 
 ```
-GET /{brand}/api/v1/member/login-history/{uuid}
+GET /{brand}/api/v1/members/{uuid}/login-history?startDate={startDate}&endDate={endDate}&isSuccess={isSuccess}
 ```
 
 **Path Parameters**
@@ -299,20 +302,21 @@ Parameter     | Description
 partition     | Partition for brand, e.g. example-brand
 uuid          | uuid, e.g. a9bb60e4-4481-4c97-8cac-481ebba219da
 ```
+
+**Query Parameters**
+```
+Parameter                        | Value Type    | Description
+-------------------------------- | ------------  |----------------------------
+startDate                        | timestamp     | 起始時間
+endDate                          | timestamp     | 結束時間
+isSuccess (optional)             | boolean       | 是否登入成功，如果有帶此參數，即表示需要過濾；反之不過濾
+```
+
 **Request Header**
 ```
 Parameter     | Description
 ------------- | ----------------------------------------------------------------
 Authorization | access token: "token {accessToken}"
-```
-
-**Request Body**
-```
-Property                         | Value Type    | Description
--------------------------------- | ------------  |----------------------------
-startDate                        | timestamp     | 起始時間
-endDate                          | timestamp     | 結束時間
-isSuccess                        | boolean       | 是否登入成功
 ```
 
 **Response**
@@ -330,7 +334,7 @@ If sussess return following data in array
 Array Property                   | Value Type    | Description
 -------------------------------- | ------------  |-----------------
 createDate                       | timestamp     | 登入時間
-iP                               | string        | IP Address
+ip                               | string        | IP Address
 isSuccess                        | boolean       | 是否登入成功
 loginType                        | string        | [兩種]: 手機/網頁
 ```
@@ -343,7 +347,7 @@ loginType                        | string        | [兩種]: 手機/網頁
 **HTTP Request** 
 
 ```
-GET /{brand}/api/v1/member/same-ip-history/{uuid}
+GET /{brand}/api/v1/members/{uuid}/same-ip-history
 ```
 
 **Path Parameters**
@@ -384,10 +388,10 @@ Array Property                   | Value Type    | Description
 -------------------------------- | ------------  |-------------------------------------------
 uuid                             | string        | Member uuid 用戶名稱
 createDate                       | timestamp     | 登入時間
-iP                               | string        | IP Address
+ip                               | string        | IP Address
 isSuccess                        | boolean       | 是否登入成功
 loginType                        | string        | [兩種]: 手機/網頁
-roleCode                         | string        | 會員對應的角色, MVP目前規劃會員只有一種角色: 直客
+roleCode                         | string        | 字串 Normal : 直客
 ```
 
 ## 6. Get Member Risk Controll
@@ -397,7 +401,7 @@ roleCode                         | string        | 會員對應的角色, MVP目
 **HTTP Request** 
 
 ```
-GET /{brand}/api/v1/member/turnover/{uuid}
+GET /{brand}/api/v1/members/{uuid}/risk-controll
 ```
 
 **Path Parameters**
@@ -425,15 +429,15 @@ Code          | Description
 Property                            | Value Type     | Description
 ----------------------------------- | ---------------|-------------------------------------------
 uuid                                | string         | Member uuid 用戶名稱
-riskControllLevel                   | string         | 風控等級[四種]: A,B,C,D,黑名單(W)
+riskControlRule                     | RiskControlRule| 物件RiskControlRule
 depositeAmount                      | decimal        | 累積充值金額
 depositeCount                       | integer        | 累積充值成功次數
 dailyContributionAmount             | decimal        | 本日累積貢獻度
-riskControlRuleDailyDeposite        | RiskControlRule| 會員有無違反提現風控條件 - 本日提款
-riskControlRuleDailyTurnover        | RiskControlRule| 會員有無違反提現風控條件 - 本日有效流水
-riskControlRuleDailyContribution    | RiskControlRule| 會員有無違反提現風控條件 - 本日貢獻度
-riskControlRulesevenDaysContribution| RiskControlRule| 會員有無違反提現風控條件 - 七日貢獻度
-riskControlRuleDepositing           | RiskControlRule| 會員有無違反提現風控條件 - 申請提領中
+dailyDeposite                       | RuleCheck      | 會員有無違反提現風控條件 - 本日提款
+dailyTurnover                       | RuleCheck      | 會員有無違反提現風控條件 - 本日有效流水
+dailyContribution                   | RuleCheck      | 會員有無違反提現風控條件 - 本日貢獻度
+sevenDaysContribution               | RuleCheck      | 會員有無違反提現風控條件 - 七日貢獻度
+riskControlRuleDepositing           | RuleCheck      | 會員有無違反提現風控條件 - 申請提領中
 riskControllLevelCreateDate         | timestamp      | 風控等級上次更新時間
 riskControllLevelReason             | string         | 風控等級上次更新原因
 riskControllLevelCreateUser         | timestamp      | 風控等級上次更新系統or人員(人員名稱CS_09)
@@ -441,55 +445,21 @@ sevenDaysTurnoverRate               | decimal        | 會員7日存流比 e.g. 
 
 
 
-RiskControlRule Property            | Value Type    | Description
+RuleCheck Property            | Value Type    | Description
 ----------------------------------- | ------------  |-------------------------------------------
-amount                              | decimal       | 金額
-riskControllAmount                  | decimal       | 對應風控條件
+amount                              | decimal       | 實際金額
+isLegal                             | boolean       | 是否違反對應風控條件
+
+
+RiskControlRule Property                   | Value Type    | Description
+------------------------------------------ | ------------  |-------------------------------------------
+riskControllLevel                          | decimal       | 風控等級[五種]: A,B,C,D,黑名單(W)
+dailyDepositeAmount                        | decimal       | 風控條件 - 本日提款
+dailyTurnoverAmount                        | decimal       | 風控條件 - 本日有效流水
+dailyContributionAmount                    | decimal       | 風控條件 - 本日貢獻度
+sevenDaysContributionAmount                | decimal       | 風控條件 - 七日貢獻度
+depositingAmount                           | decimal       | 風控條件 - 申請提領中
+
 ```
 
 ## 7. Get Member Turnover
-> 查詢會員-交易資料 [BO-13]
-> 取得與此用戶流水相關資料
-
-**HTTP Request** 
-
-```
-GET /{brand}/api/v1/member/turnover/{uuid}
-```
-
-**Path Parameters**
-```
-Parameter     | Description
-------------- | ------------------------------------------------------------
-partition     | Partition for brand, e.g. example-brand
-uuid          | uuid, e.g. a9bb60e4-4481-4c97-8cac-481ebba219da
-```
-**Request Header**
-```
-Parameter     | Description
-------------- | ----------------------------------------------------------------
-Authorization | access token: "token {accessToken}"
-```
-
-**Response**
-```
-Code          | Description
-------------- | --------
-200           | OK 
-```
-**Response Body**
-```
-Property                            | Value Type    | Description
------------------------------------ | ------------  |-------------------------------------------
-uuid                                | string        | Member uuid 用戶名稱
-lastWithdrawnDate                   | timestamp     | 最新提現成功交易時間
-lastdepositedDate                   | timestamp     | 最新充值成功交易時間
-withdrawingAmount                   | decimal       | 審核中 - 充值 
-depositingAmount                    | decimal       | 審核中 - 提現
-dailyWithdrawalAmount               | decimal       | 本日累積 - 充值
-dailyDepositeAmount                 | decimal       | 本日累積 - 提現
-dailyTurnoverAmount                 | decimal       | 本日累積 - 有效流水
-sevenDaysAccumulatedWithdrawalAmount| decimal       | 7日累積 - 充值
-sevenDaysAccumulatedDepositeAmount  | decimal       | 7日累積 - 提現
-sevenDaysAccumulatedTurnoverAmount  | decimal       | 7日累積 - 有效流水
-```
