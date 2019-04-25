@@ -13,7 +13,7 @@ Provide API for BO
 + <a href="#2-get-file">[下載檔案]</a>
 
 >功能
-+ <a href="#會員"><strong><I>會員</I></strong></a>
++ <a href="#會員"><strong><I>1. 會員</I></strong></a>
 + <a href="#1-get-member-profile-by-uuid">[基本資料]</a> - [BO-18/BO-12]
 + <a href="#2-update-member-status">[狀態調整]</a> - [BO-17/BO-185]
 + <a href="#3-get-member-status-history">[狀態異動紀錄]</a> - [BO-26]
