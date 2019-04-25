@@ -43,6 +43,42 @@ traceId  | string     | Trace ID for logger debug
 
 # 權限
 
+## 1. Get Member Menu
+> 取得客服後台菜單清單與權限
+
+**HTTP Request** 
+
+```
+GET /{brand}/api/v1/menu
+```
+
+**Path Parameters**
+```
+Parameter     | Description
+------------- | ----------------------------------------------------
+partition     | Partition for brand, e.g. example-brand
+```
+**Request Header**
+```
+Parameter     | Description
+------------- | --------------------------------------------------------
+Authorization | access token: "token {accessToken}"
+```
+**Response**
+```
+Code          | Description
+------------- | --------
+200           | OK 
+```
+**Response Body**
+```
+If sussess return following data in Array
+
+Property                         | Value Type    | Description
+-------------------------------- | ------------  |--------------------------------------------------
+menuPath                         | string        | 權限可取得的連結 類似 /account/transaction
+```
+
 # 檔案管理
 
 ## 1. Upload File
@@ -429,18 +465,18 @@ Code          | Description
 Property                            | Value Type     | Description
 ----------------------------------- | ---------------|-------------------------------------------
 uuid                                | string         | Member uuid 用戶名稱
-riskControlRule                     | RiskControlRule| 物件RiskControlRule
+riskControlRule                     | RiskControlRule| 物件 RiskControlRule
 depositeAmount                      | decimal        | 累積充值金額
 depositeCount                       | integer        | 累積充值成功次數
 dailyContributionAmount             | decimal        | 本日累積貢獻度
-dailyDeposite                       | RuleCheck      | 會員有無違反提現風控條件 - 本日提款
-dailyTurnover                       | RuleCheck      | 會員有無違反提現風控條件 - 本日有效流水
-dailyContribution                   | RuleCheck      | 會員有無違反提現風控條件 - 本日貢獻度
-sevenDaysContribution               | RuleCheck      | 會員有無違反提現風控條件 - 七日貢獻度
-riskControlRuleDepositing           | RuleCheck      | 會員有無違反提現風控條件 - 申請提領中
+dailyDeposite                       | RuleCheck      | 物件 RuleCheck 會員有無違反提現風控條件 - 本日提款
+dailyTurnover                       | RuleCheck      | 物件 RuleCheck 會員有無違反提現風控條件 - 本日有效流水
+dailyContribution                   | RuleCheck      | 物件 RuleCheck 會員有無違反提現風控條件 - 本日貢獻度
+sevenDaysContribution               | RuleCheck      | 物件 RuleCheck 會員有無違反提現風控條件 - 七日貢獻度
+riskControlRuleDepositing           | RuleCheck      | 物件 RuleCheck 會員有無違反提現風控條件 - 申請提領中
 riskControllLevelCreateDate         | timestamp      | 風控等級上次更新時間
 riskControllLevelReason             | string         | 風控等級上次更新原因
-riskControllLevelCreateUser         | timestamp      | 風控等級上次更新系統or人員(人員名稱CS_09)
+riskControllLevelCreateUser         | timestamp      | [兩種] 風控等級上次更新系統(System)/人員代號(CS_09)
 sevenDaysTurnoverRate               | decimal        | 會員7日存流比 e.g. 5.3
 
 
