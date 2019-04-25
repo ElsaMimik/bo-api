@@ -164,8 +164,8 @@ Property                         | Value Type    | Description
 uuid                             | string        | Member uuid 用戶名稱
 nickName                         | string        | Nickname 會員暱稱
 createDate                       | timestamp     | Content timestamp 會員建立日期
-currencyCode                     | string        | 幣別代碼 CNY : 人民幣
-roleCode                         | string        | 字串 Normal : 直客
+currencyCode                     | string        | [一種]: 人民幣(CNY)
+roleCode                         | string        | [一種]: 直客(Normal)
 phoneNumber                      | string        | 會員phone number 顯示後四碼，不能顯示全部
 riskControllLevel                | string        | 風控等級[五種]: A,B,C,D,黑名單(W)
 riskControllLevelCreateDate      | timestamp     | 風控等級上次更新時間
@@ -180,7 +180,7 @@ status                           | string        | 會員目前狀態[三種]: �
 isBigWin                         | boolean       | 會員是否中大獎
 bigWinCreateDate                 | timestamp     | 會員上次中大獎時間
 isSettled                        | boolean       | 會員注單是否結算完畢
-settleStatus                     | string        | 注單結算狀態[兩種]正常/異常
+settleStatus                     | string        | 注單結算狀態[兩種]正常(Normal)/異常(Abnormal) 
 ```
 
 
@@ -336,7 +336,7 @@ Array Property                   | Value Type    | Description
 createDate                       | timestamp     | 登入時間
 ip                               | string        | IP Address
 isSuccess                        | boolean       | 是否登入成功
-loginType                        | string        | [兩種]: 手機/網頁
+loginType                        | string        | [兩種]: 手機(Mobile)/網頁(Web)
 ```
 
 
@@ -390,8 +390,8 @@ uuid                             | string        | Member uuid 用戶名稱
 createDate                       | timestamp     | 登入時間
 ip                               | string        | IP Address
 isSuccess                        | boolean       | 是否登入成功
-loginType                        | string        | [兩種]: 手機/網頁
-roleCode                         | string        | 字串 Normal : 直客
+loginType                        | string        | [兩種]: 手機(Mobile)/網頁(Web)
+roleCode                         | string        | [一種]: 直客(Normal)
 ```
 
 ## 6. Get Member Risk Controll
