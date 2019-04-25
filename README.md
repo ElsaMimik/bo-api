@@ -463,3 +463,48 @@ depositingAmount                           | decimal       | 風控條件 - 申�
 ```
 
 ## 7. Get Member Turnover
+> 查詢會員-交易資料 [BO-13]
+> 取得與此用戶流水相關資料
+
+**HTTP Request** 
+
+```
+GET /{brand}/api/v1/members/{uuid}/turnover
+```
+
+**Path Parameters**
+```
+Parameter     | Description
+------------- | ------------------------------------------------------------
+partition     | Partition for brand, e.g. example-brand
+uuid          | uuid, e.g. a9bb60e4-4481-4c97-8cac-481ebba219da
+```
+**Request Header**
+```
+Parameter     | Description
+------------- | ----------------------------------------------------------------
+Authorization | access token: "token {accessToken}"
+```
+
+**Response**
+```
+Code          | Description
+------------- | --------
+200           | OK 
+```
+**Response Body**
+```
+Property                            | Value Type    | Description
+----------------------------------- | ------------  |-------------------------------------------
+uuid                                | string        | Member uuid 用戶名稱
+lastWithdrawnDate                   | timestamp     | 最新提現成功交易時間
+lastdepositedDate                   | timestamp     | 最新充值成功交易時間
+withdrawingAmount                   | decimal       | 審核中 - 充值 
+depositingAmount                    | decimal       | 審核中 - 提現
+dailyWithdrawalAmount               | decimal       | 本日累積 - 充值
+dailyDepositeAmount                 | decimal       | 本日累積 - 提現
+dailyTurnoverAmount                 | decimal       | 本日累積 - 有效流水
+sevenDaysAccumulatedWithdrawalAmount| decimal       | 7日累積 - 充值
+sevenDaysAccumulatedDepositeAmount  | decimal       | 7日累積 - 提現
+sevenDaysAccumulatedTurnoverAmount  | decimal       | 7日累積 - 有效流水
+```
